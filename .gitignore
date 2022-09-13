@@ -1,0 +1,18 @@
+###! Client ###
+/client/node_modules
+/client/build
+/client/.env
+
+
+###! backend ###
+/backend/node_modules
+/backend/.env
+/backend/data
+/backend/mongo-entrypoint
+/backend/mongoconfig
+/backend/db_data
+/backend/data
+
+
+###! General ###
+.env
