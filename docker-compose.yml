@@ -12,8 +12,10 @@ services:
     build:
       dockerfile: Dockerfile.dev
       context: ./backend
+    environment:
+      PORT: '${PORT}' 
     ports:
-      - 5000:5000
+      - ${PORT}:${PORT}
     volumes:
       - /app/node_modules
       - ./backend:/app
@@ -25,9 +27,14 @@ services:
 
 ###! NoSql: MongoDB ###  
   mongodb:
+    depends_on:
+      - postgresql
     image: mongo
     restart: always
+    env_file:
+      - .env
     environment:
+      MONGO_PORT: '${MONGO_PORT}'
       MONGODB_URL: '${MONGODB_URL}'
       MONGO_USER: '${MONGO_USER}'
       MONGO_PASSWORD: '${MONGO_PASSWORD}'
@@ -36,9 +43,8 @@ services:
       - ./backend/data:/data/db
       - ./backend/mongoconfig:/data/configdb
     ports:
-      - 27017:27017    
-    env_file:
-      - .env
+      - ${MONGO_PORT}:${MONGO_PORT}    
+
     networks:
       - common
 
@@ -61,11 +67,12 @@ services:
       - ./backend/db_data:/var/lib/postgresql/data
       - ./backend/db_data/init.sql:/docker-entrypoint-initdb.d/database.sql
     environment:
+      POSTGRES_PORT: '${POSTGRES_PORT}'
       POSTGRES_USER: '${POSTGRES_USER}'
       POSTGRES_PASSWORD: '${POSTGRES_PASSWORD}'
       POSTGRES_DB: '${POSTGRES_DB}'
     ports:
-      - 5432:5432
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
     env_file:
       - .env   
     networks:
@@ -80,7 +87,6 @@ services:
     container_name: client
     build:
       dockerfile: Dockerfile.dev
-      # dockerfile: Dockerfile
       context: ./client
 
     volumes:
@@ -91,7 +97,7 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
     networks:
-      - common 
+      - common
 ###! WebServer:NGINX ###     
   nginx:
     image: nginx:1.21.3

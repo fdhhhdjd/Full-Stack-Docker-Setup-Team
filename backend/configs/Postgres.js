@@ -6,20 +6,15 @@ const {
   POSTGRES_HOST,
   POSTGRES_PORT,
   POSTGRES_DB,
-  DB_POOL_SIZE,
-  DB_POOL_CLIENT_IDLE_TIMEOUT,
-  DB_POOL_CLIENT_CONNECTION_TIMEOUT,
+  POSTGRES_DB_POOL_SIZE,
 } = process.env;
 const pool = new Pool({
   user: POSTGRES_USER,
   host: POSTGRES_HOST,
   database: POSTGRES_DB,
   password: POSTGRES_PASSWORD,
-  port: Number(POSTGRES_PORT),
-  database: POSTGRES_DB,
-  max: Number(DB_POOL_SIZE),
-  idleTimeoutMillis: Number(DB_POOL_CLIENT_IDLE_TIMEOUT),
-  connectionTimeoutMillis: Number(DB_POOL_CLIENT_CONNECTION_TIMEOUT),
+  port: POSTGRES_PORT,
+  max: POSTGRES_DB_POOL_SIZE,
 });
 pool.connect();
 pool.query(`Select * from users`, (err, res) => {
