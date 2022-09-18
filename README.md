@@ -7,7 +7,7 @@
 <a href = "mailto:nguyentientai10@gmail.com"><img src="https://img.icons8.com/fluency/48/000000/send-mass-email.png" alt="License"></a>
 </p>
 
-# Study Setup Docker Team Dev 🐋
+# Study Setup Docker Team Dev 🐋.
 Mongo,Reactjs,Redis,Posgress,Mysql,....
 
 ## Tài Khoản Donate li Cf để có động lực code cho anh em tham khảo 😄😄.
